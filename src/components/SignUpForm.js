@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
-import { emailChanged, passwordChanged, loginUser, clearSignUpForm } from '../actions';
+import { emailChanged, passwordChanged, signUpUser, clearSignUpForm } from '../actions';
+
 import { Card, CardSection, TextField, Button, Spinner } from './common';
 
 
-class LoginForm extends Component {
+class SignUpForm extends Component {
 
   componentWillMount() {
     this.props.clearSignUpForm();
   }
-  
+
   onEmailChange(text) {
     this.props.emailChanged(text);
   }
@@ -23,7 +23,7 @@ class LoginForm extends Component {
   onButtonPress() {
     const { email, password } = this.props;
 
-    this.props.loginUser({ email, password });
+    this.props.signUpUser({ email, password });
   }
 
   renderError() {
@@ -42,7 +42,7 @@ class LoginForm extends Component {
     }
     return (
       <Button onPress={this.onButtonPress.bind(this)}>
-        Login
+        Sign Up
       </Button>
     );
   }
@@ -69,19 +69,16 @@ class LoginForm extends Component {
           />
         </CardSection>
 
+
         {this.renderError()}
         <CardSection>
           {this.renderButton()}
-        </CardSection>
-        <CardSection>
-          <Button onPress={Actions.signup}>
-            Sign Up
-          </Button>
         </CardSection>
       </Card>
     );
   }
 }
+
 
 const styles = {
   errorTextStyle: {
@@ -105,4 +102,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser, clearSignUpForm })(LoginForm);
+export default connect(mapStateToProps, { emailChanged, passwordChanged, signUpUser, clearSignUpForm })(SignUpForm);
